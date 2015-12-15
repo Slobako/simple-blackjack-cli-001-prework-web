@@ -33,13 +33,13 @@ end
 def hit?(card_total)
   prompt_user# code hit? here
   user_choice = get_user_input
-  if user_choice == "s"
+  if user_choice == "h"
+    card_total += deal_card
+  elsif user_choice == "s"
     card_total
-  elsif user_choice == "h"
-    card_total = card_total + deal_card
   else
     invalid_command
-    prompt_user
+    card_total #after each option here, the method needs to return card_total; had I not put it here for ex. it would return nil and then i'd have nil <= 21 in #runner
   end
 end
 
@@ -50,15 +50,12 @@ end
 #####################################################
 # get every test to pass before coding runner below #
 #####################################################
-
 def runner
-  welcome  # code runner here
-  initial_round
-  end_total = hit?(card_total)
-until end_total > 21 do
-  hit?(card_total)
-  display_card_total(card_total)
+  welcome
+  cards_sum = initial_round
+  while cards_sum <= 21 do
+    cards_sum = hit?(cards_sum)
+  display_card_total(cards_sum)
   end
-  end_game(card_total)
-  end
-
+  end_game(cards_sum)
+end
